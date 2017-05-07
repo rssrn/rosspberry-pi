@@ -1,0 +1,29 @@
+- hosts: oak
+  tasks:
+  - name: Install Nagios Plugins
+    copy:
+      src: ../../nagios/plugins/check_cpu_temperature 
+      dest: /usr/lib/nagios/plugins/check_cpu_temperature
+      owner: root
+      group: root
+      mode: 0755
+  - name: Add Config For Nagios Plugins
+    copy:
+      src: ../../nagios/plugins-config/cpu_temperature.cfg
+      dest: /etc/nagios-plugins/config/cpu_temperature.cfg
+      owner: root
+      group: root
+      mode: "u=rw,g=r,o=r"
+  - name: Add Localhost Nagios Config
+    copy:
+      src: ../../nagios/localhost_nagios2.cfg
+      dest: /etc/nagios3/conf.d/localhost_nagios2.cfg
+      owner: root
+      group: root
+      mode: "u=rw,g=r,o=r"
+    notify:
+      - Reload Nagios Config
+
+  handlers:
+    - name: Reload Nagios Config
+      service: name=nagios3 state=restarted

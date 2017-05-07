@@ -89,3 +89,17 @@ TODO: Shinken, Graphite, Gmail
 
 Note - display resolution can be changed in raspi-config advanced settings
 
+
+10) Make own nagios plugin to monitor temperature
+
+See [check_temperature](nagios/plugins/check_cpu_temperature)
+
+Put above script in /usr/lib/nagios/plugins/check_cpu_temperature
+
+Create /etc/nagios-plugins/config/cpu_temperature.cfg
+Edit /etc/nagios3/conf.d/localhost_nagios2.cfg to add the service
+
+
+11) Get outgoing mail working using ssmtp and heirloom-mailx.  For filters on the gmail side, note X-Google-Original-From will reflect the sending unix user on the pi (pi, nagios, root etc).
+
+12) Start using ansible for deployment - see [ansible config](ansible)
