@@ -1,0 +1,55 @@
+{
+	"intensity": 10,
+	"alert_types": {
+		"UP": {
+			"color": "green"
+		},
+		"UPBUSY": {
+			"color": "green",
+			"blink": {
+				"on": 2000,
+				"off": 2000
+			}
+		},
+		"UNKNOWN": {
+			"color": "blue"
+		},
+		"DOWN": {
+			"color": "#8B0000"
+		}
+	},
+	"alerts": [
+		{
+			"position": 1,
+			"type": "UP"
+		},
+		{
+			"position": 2,
+			"type": "UPBUSY"
+		},
+		{
+			"position": 3,
+			"type": "UNKNOWN"
+		},
+		{
+			"position": 4,
+			"type": "DOWN"
+		},
+		{
+			"position": 5,
+			"type": "INDIVIDUAL",
+			"spec": {
+				"colors": [
+					"blue",
+					"magenta",
+					"orange"
+				],
+				"animate": 3000
+			}
+		},
+		{
+			"position": 6,
+			"type": "UPBUSY"
+		}
+	]
+}
