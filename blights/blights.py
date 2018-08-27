@@ -2,7 +2,7 @@ import json
 import threading
 import time
 import logging
-from pprint import pprint
+from beeprint import pp
 from blinkstick import blinkstick
 from datetime import datetime
 from Queue import Queue
@@ -43,8 +43,8 @@ def main():
 
     # blinkstick gets confused if we give it commands too close together
     # so we need to do comms via a single thread so we can throttle
-    consumer = threading.Thread(target = processQueue)
-    consumer.start()
+    mediator = threading.Thread(target = processQueue)
+    mediator.start()
     
     while(1):
         readAndExecute()
@@ -66,14 +66,17 @@ def processQueue() :
 
 def readAndExecute():
     logging.info('********* refreshing data from config file ************')
-    with open('defs.json') as data_file:    
+    with open('mon.json') as data_file:    
         data = json.load(data_file)
 
     # set intensity of all channels
     if 'intensity' in data.keys() and bstick is not None:
         bstick.set_max_rgb_value(data['intensity'])
-    
-    types = data['alert_types']
+
+    if 'types' in data.keys():
+        types = data['alert_types']
+    else:
+        types = {}
 
     for alert in data['alerts']:
         processAlert(alert, types)
@@ -123,11 +126,15 @@ def executeAlert(pos,spec):
             # so do nothing
             logging.info("ALREADY running identical spec for position " + str(pos))
             return
-        logging.info('  Stopping thread for position 4')
-        thread = leds.pop(pos)['thread']
-        thread.stop()
-        thread.join
-        logging.info("THREAD JOINED FOR LED: " + str(pos))
+        logging.info('  Stopping thread for position ' + str(pos))
+        led = leds.pop(pos)
+        if 'thread' in led:
+            thread = led['thread']
+            thread.stop()
+            thread.join
+            logging.info("THREAD JOINED FOR LED: " + str(pos))
+        else:
+            logging.info("LED " + str(pos) + " - no old thread to stop")
     
     if 'blink' in spec.keys():
         thread = StoppableThread(target = executeBlink, args = (pos,spec,))
