@@ -1,0 +1,48 @@
+0,tornado,red,blink
+1,tropical storm,red,blink
+2,hurricane,red,blink
+3,severe thunderstorms,red,blink
+4,thunderstorms,red,blink
+5,mixed rain and snow,blue,blink
+6,mixed rain and sleet,blue,blink
+7,mixed snow and sleet,blue,blink
+8,freezing drizzle,blue
+9,drizzle,orange
+10,freezing rain,blue,blink
+11,showers,orange
+12,showers,orange
+13,snow flurries,blue
+14,light snow showers,blue
+15,blowing snow,blue
+16,snow,blue
+17,hail,blue
+18,sleet,blue
+19,dust,yellow
+20,foggy,orange
+21,haze,green
+22,smoky,yellow
+23,blustery,blue
+24,windy,orange
+25,cold,blue
+26,cloudy,green
+27,mostly cloudy (night),green
+28,mostly cloudy (day),green
+29,partly cloudy (night),green
+30,partly cloudy (day),green
+31,clear (night),green
+32,sunny,green,blink
+33,fair (night),green
+34,fair (day),green
+35,mixed rain and hail,blue
+36,hot,green,blink
+37,isolated thunderstorms,orange
+38,scattered thunderstorms,red
+39,scattered thunderstorms,red
+40,scattered showers,orange
+41,heavy snow,blue,blink
+42,scattered snow showers,blue
+43,heavy snow,blue,blink
+44,partly cloudy,green,
+45,thundershowers,red
+46,snow showers,blue
+47,isolated thundershowers,red
