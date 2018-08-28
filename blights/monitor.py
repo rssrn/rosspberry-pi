@@ -1,3 +1,6 @@
+import logging
+logging.basicConfig(format='%(asctime)s %(message)s',level='INFO')
+
 # monitor some specific things and generate json
 # the json will later be read by blights.py
 from beeprint import pp
@@ -7,11 +10,10 @@ from beeprint import pp
 from weather import Weather, Unit
 
 import json
-import logging
 import csv
 import time
 
-logging.basicConfig(format='%(asctime)s %(message)s',level='INFO')
+
 
 #owm = pyowm.OWM(os.environ['APIKEY_OWM'])
 #w_current = owm.weather_at_place('Richmond,GB')
