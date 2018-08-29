@@ -1,13 +1,15 @@
+import logging
+logging.basicConfig(format='%(asctime)s %(message)s',level='INFO')
+
 import json
 import threading
 import time
-import logging
 from beeprint import pp
 from blinkstick import blinkstick
 from datetime import datetime
 from Queue import Queue
 
-logging.basicConfig(format='%(asctime)s %(message)s',level='INFO')
+
 
 leds = {}
 control_queue = Queue()
@@ -66,8 +68,14 @@ def processQueue() :
 
 def readAndExecute():
     logging.info('********* refreshing data from config file ************')
-    with open('mon.json') as data_file:    
-        data = json.load(data_file)
+    rawdata = open('mon.json', 'r').read()
+
+    try:
+        data = json.loads(rawdata)
+    except ValueError, e:
+        print rawdata
+        print ('"%s" when reading mon.json' % str(e))
+        return
 
     # set intensity of all channels
     if 'intensity' in data.keys() and bstick is not None:
