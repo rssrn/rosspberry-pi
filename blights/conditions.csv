@@ -25,10 +25,10 @@
 24,windy,yellowgreen
 25,cold,springgreen
 26,cloudy,lightslategray
-27,mostly cloudy (night),lightsteelblue
-28,mostly cloudy (day),lightsteelblue
-29,partly cloudy (night),palegreen
-30,partly cloudy (day),palegreen
+27,mostly cloudy (night),lightseagreen
+28,mostly cloudy (day),lightseagreen
+29,partly cloudy (night),mediumseagreen
+30,partly cloudy (day),mediumseagreen
 31,clear (night),green
 32,sunny,green
 33,fair (night),green
@@ -42,7 +42,7 @@
 41,heavy snow,white,blink
 42,scattered snow showers,white
 43,heavy snow,white,blink
-44,partly cloudy,palegreen
+44,partly cloudy,mediumseagreen
 45,thundershowers,red
 46,snow showers,white
 47,isolated thundershowers,orange
