@@ -66,7 +66,7 @@ def alertForCondition(code):
 
 output = {}
 
-output['intensity'] = 10
+output['intensity'] = 25
 output['alerts'] = []
 
 
