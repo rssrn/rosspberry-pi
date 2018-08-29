@@ -9,40 +9,40 @@
 8,freezing drizzle,lightcyan
 9,drizzle,mediumaquamarine
 10,freezing rain,skyblue
-11,showers,orange
-12,showers,orange
+11,showers,darkcyan
+12,showers,darkcyan
 13,snow flurries,white
 14,light snow showers,white
 15,blowing snow,white
 16,snow,white
 17,hail,papayawhip
 18,sleet,mistyrose
-19,dust,yellow
-20,foggy,orange
+19,dust,purple
+20,foggy,darksalmon
 21,haze,palegoldenrod
 22,smoky,olive
 23,blustery,yellowgreen
 24,windy,yellowgreen
 25,cold,springgreen
 26,cloudy,lightslategray
-27,mostly cloudy (night),lightseagreen
-28,mostly cloudy (day),lightseagreen
-29,partly cloudy (night),mediumseagreen
-30,partly cloudy (day),mediumseagreen
-31,clear (night),green
-32,sunny,green
-33,fair (night),green
-34,fair (day),green
+27,mostly cloudy (night),darkslategrey
+28,mostly cloudy (day),darkslategrey
+29,partly cloudy (night),darkolivegreen
+30,partly cloudy (day),darkolivegreen
+31,clear (night),yellow
+32,sunny,yellow
+33,fair (night),yellow
+34,fair (day),yellow
 35,mixed rain and hail,blue
-36,hot,green,blink
-37,isolated thunderstorms,orange
+36,hot,yellow,blink
+37,isolated thunderstorms,orangered
 38,scattered thunderstorms,red
 39,scattered thunderstorms,red
-40,scattered showers,orange
+40,scattered showers,darkcyan
 41,heavy snow,white,blink
 42,scattered snow showers,white
 43,heavy snow,white,blink
-44,partly cloudy,mediumseagreen
+44,partly cloudy,darkolivegreen
 45,thundershowers,red
 46,snow showers,white
-47,isolated thundershowers,orange
+47,isolated thundershowers,orangered
