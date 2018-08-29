@@ -32,7 +32,6 @@ def alertForTemperature(temp):
     blink = False
     color = 'magenta'
 
-    logging.info("Current Temperature:" + str(temp))
     if (temp < 0):
         color = 'blue'
         blink = True
@@ -78,7 +77,7 @@ output['alerts'] = []
 ####################################################
 weather = Weather(unit=Unit.CELSIUS)
 lookup = weather.lookup(91731252) # code for Chiswick
-
+logging.info("Current Temperature:" + lookup.condition.temp)
 color, blink = alertForTemperature(int(lookup.condition.temp))
 output['alerts'].append(makeAlert(1, color, blink))
 
@@ -91,6 +90,7 @@ output['alerts'].append(makeAlert(1, color, blink))
 
 # depends on previous call to yahoo weather api
 condition = lookup.condition
+logging.info("Current condition: " + lookup.condition.text)
 color, blink = alertForCondition(lookup.condition.code)
 output['alerts'].append(makeAlert(2, color, blink))
 
@@ -109,6 +109,7 @@ else:
     fc_idx = 1
 
 high = lookup.forecast[fc_idx].high
+logging.info("Current Temperature:" + lookup.forecast[fc_idx].high)
 color, blink = alertForTemperature(int(high))
 output['alerts'].append(makeAlert(3, color, blink))
 
@@ -119,6 +120,7 @@ output['alerts'].append(makeAlert(3, color, blink))
 ####################################################
 code = lookup.forecast[fc_idx].code
 color, blink = alertForCondition(code)
+logging.info("Forecast condition: " + lookup.forecast[fc_idx].text)
 output['alerts'].append(makeAlert(4, color, blink))
 
 ####################################################
