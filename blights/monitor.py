@@ -72,19 +72,19 @@ output['alerts'] = []
 
 ####################################################
 #
-#  Light 1: Current Temperature
+#  Light 0: Current Temperature
 #
 ####################################################
 weather = Weather(unit=Unit.CELSIUS)
 lookup = weather.lookup(91731252) # code for Chiswick
 logging.info("Current Temperature:" + lookup.condition.temp)
 color, blink = alertForTemperature(int(lookup.condition.temp))
-output['alerts'].append(makeAlert(1, color, blink))
+output['alerts'].append(makeAlert(0, color, blink))
 
 
 ####################################################
 #
-#  Light 2: Current Conditions
+#  Light 1: Current Conditions
 #
 ####################################################
 
@@ -92,12 +92,12 @@ output['alerts'].append(makeAlert(1, color, blink))
 condition = lookup.condition
 logging.info("Current condition: " + lookup.condition.text)
 color, blink = alertForCondition(lookup.condition.code)
-output['alerts'].append(makeAlert(2, color, blink))
+output['alerts'].append(makeAlert(1, color, blink))
 
 
 ####################################################
 #
-#  Light 3: Forecast temp
+#  Light 2: Forecast temp
 #
 ####################################################
 
@@ -109,19 +109,19 @@ else:
     fc_idx = 1
 
 high = lookup.forecast[fc_idx].high
-logging.info("Current Temperature:" + lookup.forecast[fc_idx].high)
+logging.info("Forecast High Temperature:" + lookup.forecast[fc_idx].high)
 color, blink = alertForTemperature(int(high))
-output['alerts'].append(makeAlert(3, color, blink))
+output['alerts'].append(makeAlert(2, color, blink))
 
 ####################################################
 #
-#  Light 4: Forecast condition
+#  Light 3: Forecast condition
 #
 ####################################################
 code = lookup.forecast[fc_idx].code
 color, blink = alertForCondition(code)
 logging.info("Forecast condition: " + lookup.forecast[fc_idx].text)
-output['alerts'].append(makeAlert(4, color, blink))
+output['alerts'].append(makeAlert(3, color, blink))
 
 ####################################################
 #
