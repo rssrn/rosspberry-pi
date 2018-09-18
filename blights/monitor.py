@@ -19,9 +19,10 @@ import time
 #w_current = owm.weather_at_place('Richmond,GB')
 #print(w_current.get_wind())
 
-def makeAlert(position,color, blink):
+def makeAlert(position, reason, color, blink):
     res = {}
     res['position'] = position
+    res['reason'] = reason
     res['type'] = 'INDIVIDUAL'
     res['spec'] = {'color': color}
     if blink:
@@ -30,7 +31,6 @@ def makeAlert(position,color, blink):
 
 def alertForTemperature(temp):
     blink = False
-    color = 'magenta'
 
     if (temp < 0):
         color = 'blue'
@@ -77,9 +77,9 @@ output['alerts'] = []
 ####################################################
 weather = Weather(unit=Unit.CELSIUS)
 lookup = weather.lookup(91731252) # code for Chiswick
-logging.info("Current Temperature:" + lookup.condition.temp)
+reason = "Current temperature: " + lookup.condition.temp
 color, blink = alertForTemperature(int(lookup.condition.temp))
-output['alerts'].append(makeAlert(0, color, blink))
+output['alerts'].append(makeAlert(0, reason, color, blink))
 
 
 ####################################################
@@ -90,9 +90,9 @@ output['alerts'].append(makeAlert(0, color, blink))
 
 # depends on previous call to yahoo weather api
 condition = lookup.condition
-logging.info("Current condition: " + lookup.condition.text)
+reason = "Current condition: " + lookup.condition.text
 color, blink = alertForCondition(lookup.condition.code)
-output['alerts'].append(makeAlert(1, color, blink))
+output['alerts'].append(makeAlert(1, reason, color, blink))
 
 
 ####################################################
@@ -105,13 +105,16 @@ output['alerts'].append(makeAlert(1, color, blink))
 current_hour = int(time.strftime('%H'))
 if current_hour < 17:
     fc_idx = 0
+    day = 'today'
 else:
     fc_idx = 1
+    day = 'tomorrow'
 
 high = lookup.forecast[fc_idx].high
-logging.info("Forecast High Temperature:" + lookup.forecast[fc_idx].high)
+reason = "Forecast high temperature (" + day + "): " + \
+         lookup.forecast[fc_idx].high
 color, blink = alertForTemperature(int(high))
-output['alerts'].append(makeAlert(2, color, blink))
+output['alerts'].append(makeAlert(2, reason, color, blink))
 
 ####################################################
 #
@@ -120,8 +123,8 @@ output['alerts'].append(makeAlert(2, color, blink))
 ####################################################
 code = lookup.forecast[fc_idx].code
 color, blink = alertForCondition(code)
-logging.info("Forecast condition: " + lookup.forecast[fc_idx].text)
-output['alerts'].append(makeAlert(3, color, blink))
+reason = "Forecast condition (" + day + "): " + lookup.forecast[fc_idx].text
+output['alerts'].append(makeAlert(3, reason, color, blink))
 
 ####################################################
 #
@@ -132,5 +135,13 @@ output['alerts'].append(makeAlert(3, color, blink))
 # Kew Gardens To Gunnersbury
 
 print json.dumps(output, indent=4, sort_keys=True)
+
+
+####################################################
+#
+# News
+#
+####################################################
+
 
 #pp(lookup)
