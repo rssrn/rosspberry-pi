@@ -93,7 +93,7 @@ search_terms = [
 
 r = CollectorRegistry()
 for term in search_terms:
-    results, words = countNews(term)
+    count, words = countNews(term)
     g = Gauge(gaugeName(term), \
               'Hits on search for news about ' + term, \
               registry = r)
