@@ -11,6 +11,14 @@ page_template = Template('''
     body {
         font-size: 200%;
     }
+    table {
+        border-spacing: 5px;
+        width: 90%;
+    }
+    td {
+        border-radius: 10px;
+        width: 45px;
+    }
     </style>
   </head>
   <body>
@@ -23,8 +31,8 @@ page_template = Template('''
 
 row_template = Template('''
       <tr>
-        <td> $position </td>
-        <td style="background-color: $color "> $color </td>
+        <!-- position: $position -->
+        <td style="background-color: $color"></td>
         <td> $status </td>
       </tr>''')
 
