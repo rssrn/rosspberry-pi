@@ -4,8 +4,10 @@ from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
 import datetime
 import collections
 import time
+import os
 
-newsapi = NewsApiClient(api_key='89487e14389244b88f51115a0624c3f4')
+key = os.environ['NEWS_API_KEY']
+newsapi = NewsApiClient(key)
 
 def countNews(search_term):
     global newsapi
