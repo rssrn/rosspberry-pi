@@ -62,6 +62,8 @@ static domain_name_servers=192.168.1.254
 
 and reboot
 
+(or just configure router to statically assign a dhcp address, if router has this capability)
+
 Also add to /etc/resolv.conf on laptop
 
 Also setup ssh via public key
