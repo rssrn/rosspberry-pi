@@ -77,7 +77,7 @@ output['alerts'] = []
 ####################################################
 weather = Weather(unit=Unit.CELSIUS)
 lookup = weather.lookup(91731252) # code for Chiswick
-reason = "Current temperature: " + lookup.condition.temp
+reason = "Currently " + lookup.condition.temp + "&deg;"
 color, blink = alertForTemperature(int(lookup.condition.temp))
 output['alerts'].append(makeAlert(0, reason, color, blink))
 
@@ -90,7 +90,7 @@ output['alerts'].append(makeAlert(0, reason, color, blink))
 
 # depends on previous call to yahoo weather api
 condition = lookup.condition
-reason = "Current condition: " + lookup.condition.text
+reason = "Currently " + lookup.condition.text
 color, blink = alertForCondition(lookup.condition.code)
 output['alerts'].append(makeAlert(1, reason, color, blink))
 
@@ -111,8 +111,9 @@ else:
     day = 'tomorrow'
 
 high = lookup.forecast[fc_idx].high
-reason = "Forecast high temperature (" + day + "): " + \
-         lookup.forecast[fc_idx].high
+reason = "Forecast high (" + day + "): " + \
+         lookup.forecast[fc_idx].high + "&deg;" + \
+         " (low " + lookup.forecast[fc_idx].low + "&deg;)" 
 color, blink = alertForTemperature(int(high))
 output['alerts'].append(makeAlert(2, reason, color, blink))
 
@@ -123,7 +124,7 @@ output['alerts'].append(makeAlert(2, reason, color, blink))
 ####################################################
 code = lookup.forecast[fc_idx].code
 color, blink = alertForCondition(code)
-reason = "Forecast condition (" + day + "): " + lookup.forecast[fc_idx].text
+reason = "Forecast (" + day + "): " + lookup.forecast[fc_idx].text
 output['alerts'].append(makeAlert(3, reason, color, blink))
 
 ####################################################
