@@ -111,18 +111,24 @@ for term in search_terms:
     i_search_terms_checked += 1
     time.sleep(1)
 
-c = Histogram('news_script_searchterms_checked_count', \
-              'Number of search terms checked by script in one run', \
-              registry = r)
-c.observe(i_search_terms_checked)
+#--------------------- Start Instrumentation ------------------------------
+i_term_count = Gauge('news_script_searchterms_checked_count', \
+                     'Number of search terms checked by script in one run', \
+                     registry = r)
+i_term_count.set(i_search_terms_checked)
 
-# elapsed time
-e = Histogram('news_script_execution_time_milliseconds', \
-              'Total time for one run of news collection script', \
-              registry = r)
+i_exec_time = Gauge('news_script_exec_duration_milliseconds', \
+                   'Total time for one run of news collection script', \
+                   registry = r)
 dt = datetime.now() - start_time
 ms_delta = (dt.days *24*60*60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
 print('execution time ' + str(ms_delta))
-e.observe(ms_delta)
+i_exec_time.set(ms_delta)
+
+i_last_exec = Gauge('news_script_exec_timestamp_seconds', \
+                    'last time news script executed', \
+                    registry = r)
+i_last_exec.set_to_current_time()
+#--------------------- End Instrumentation --------------------------------
 
 push_to_gateway('localhost:9091', job='news', registry=r)
