@@ -1,7 +1,7 @@
 from newsapi import NewsApiClient
 from beeprint import pp
 from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
-import datetime
+from datetime import date, timedelta
 import collections
 import time
 import os
@@ -15,12 +15,15 @@ def countNews(search_term):
     today_date = datetime.date.today()
     today = today_date.strftime('%Y-%m-%d')
 
+    yesterday_date = today_date - timedelta(days=1)
+    yesterday = yesterday_date.strftime('%Y-%m-%d')
+
     news = newsapi.get_everything(
         q='"' + search_term + '"',
         language='en',
         sort_by='relevancy',
         page_size=100,
-        from_param=today,
+        from_param=yesterday,
         to=today
     )
 
@@ -28,6 +31,7 @@ def countNews(search_term):
     boring_words = [
         'to',
         '-',
+        '&',
         'as',
         'in',
         'the',
