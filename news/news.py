@@ -1,10 +1,13 @@
 from newsapi import NewsApiClient
 from beeprint import pp
-from prometheus_client import CollectorRegistry, Gauge, push_to_gateway
-from datetime import date, timedelta
+from prometheus_client import CollectorRegistry, Gauge, Counter, Histogram, push_to_gateway
+from datetime import datetime, date, timedelta
 import collections
 import time
 import os
+import timeit
+
+start_time = datetime.now()
 
 key = os.environ['NEWS_API_KEY']
 newsapi = NewsApiClient(key)
@@ -97,6 +100,7 @@ search_terms = [
     'scientific games'
 ]
 
+i_search_terms_checked = 0
 r = CollectorRegistry()
 for term in search_terms:
     count, words = countNews(term)
@@ -104,5 +108,21 @@ for term in search_terms:
               'Hits on search for news about ' + term, \
               registry = r)
     g.set(count)
-    push_to_gateway('localhost:9091', job='news', registry=r)
+    i_search_terms_checked += 1
     time.sleep(1)
+
+c = Histogram('news_script_searchterms_checked_count', \
+              'Number of search terms checked by script in one run', \
+              registry = r)
+c.observe(i_search_terms_checked)
+
+# elapsed time
+e = Histogram('news_script_execution_time_milliseconds', \
+              'Total time for one run of news collection script', \
+              registry = r)
+dt = datetime.now() - start_time
+ms_delta = (dt.days *24*60*60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
+print('execution time ' + str(ms_delta))
+e.observe(ms_delta)
+
+push_to_gateway('localhost:9091', job='news', registry=r)
