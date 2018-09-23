@@ -12,7 +12,7 @@ newsapi = NewsApiClient(key)
 def countNews(search_term):
     global newsapi
     
-    today_date = datetime.date.today()
+    today_date = date.today()
     today = today_date.strftime('%Y-%m-%d')
 
     yesterday_date = today_date - timedelta(days=1)
