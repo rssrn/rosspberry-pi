@@ -1,6 +1,6 @@
 from newsapi import NewsApiClient
 from beeprint import pp
-from prometheus_client import CollectorRegistry, Gauge, Counter, Histogram, push_to_gateway
+from prometheus_client import CollectorRegistry, Gauge, Counter, push_to_gateway
 from datetime import datetime, date, timedelta
 import collections
 import time
