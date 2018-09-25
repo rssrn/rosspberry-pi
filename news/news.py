@@ -21,13 +21,16 @@ def countNews(search_term):
     yesterday_date = today_date - timedelta(days=1)
     yesterday = yesterday_date.strftime('%Y-%m-%d')
 
+    tomorrow_date = today_date + timedelta(days=1)
+    tomorrow = tomorrow_date.strftime('%Y-%m-%d')
+
     news = newsapi.get_everything(
         q='"' + search_term + '"',
         language='en',
         sort_by='relevancy',
         page_size=100,
-        from_param=yesterday,
-        to=today
+        from_param=today,
+        to=tomorrow
     )
 
 
