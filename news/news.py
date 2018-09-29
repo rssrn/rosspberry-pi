@@ -64,6 +64,8 @@ def countNews(search_term):
     
     words = []
     for article in news['articles']:
+        if article['title'] is None:
+            continue
         words.extend(article['title'].split())
         # get pairs of words as well
         prev_word = ''
@@ -90,6 +92,9 @@ def countNews(search_term):
     print(news['totalResults'])
     return news['totalResults'],counter.most_common()[:10]
 
+def writeTermsDetail(term,words):
+    pass
+
 def gaugeName(term):
     return 'news_' + term.replace(' ','_') + "_hits"
 
@@ -111,6 +116,9 @@ for term in search_terms:
               'Hits on search for news about ' + term, \
               registry = r)
     g.set(count)
+
+    writeTermsDetail(term, words)
+    
     i_search_terms_checked += 1
     time.sleep(1)
 
