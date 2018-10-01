@@ -6,6 +6,8 @@ import collections
 import time
 import os
 import timeit
+from cgi import escape
+from os.path import expanduser
 
 start_time = datetime.now()
 
@@ -93,7 +95,21 @@ def countNews(search_term):
     return news['totalResults'],counter.most_common()[:10]
 
 def writeTermsDetail(term,words):
-    pass
+    topwords = []
+    for pair in words[0:3]:
+        topwords.append(pair[0])
+
+    content = ""
+    for word in topwords:
+        search = '"' + term + '" "' + word + '"'
+        content += '<a href="https://news.google.com/search?q='
+        content += escape(search, quote=True) + '">' + word + '</a><br/>'
+
+    filename = "~/public_html/" + term.replace(' ','_') + '.html'
+    filename = os.path.expanduser(filename)
+    file = open(filename,'w')
+    file.write(content)
+
 
 def gaugeName(term):
     return 'news_' + term.replace(' ','_') + "_hits"
