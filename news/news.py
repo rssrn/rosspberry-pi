@@ -60,6 +60,8 @@ def countNews(search_term):
         'his',
         'says',
         'have',
+        'with',
+        'after',
     ]
     boring_words.append(search_term.lower())
     boring_words.extend([x.lower() for x in search_term.split()])
