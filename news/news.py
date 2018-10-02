@@ -99,11 +99,15 @@ def writeTermsDetail(term,words):
     for pair in words[0:3]:
         topwords.append(pair[0])
 
-    content = ""
+    content = "<html>"
+    content += '<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />'
+    content += '<meta http-equiv="Pragma" content="no-cache" />'
+    content += '<meta http-equiv="Expires" content="0" />'
     for word in topwords:
         search = '"' + term + '" "' + word + '"'
         content += '<a href="https://news.google.com/search?q='
         content += escape(search, quote=True) + '">' + word + '</a><br/>'
+    content += '</html>'
 
     filename = "~/public_html/" + term.replace(' ','_') + '.html'
     filename = os.path.expanduser(filename)
