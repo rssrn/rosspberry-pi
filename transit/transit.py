@@ -4,6 +4,7 @@ logging.basicConfig(format='%(asctime)s %(message)s',level='INFO')
 from beeprint import pp
 import googlemaps
 from datetime import datetime
+import time
 import os
 import re
 from prometheus_client import CollectorRegistry, Gauge, Counter, push_to_gateway
@@ -19,6 +20,10 @@ dirs = gmaps.directions("TW9 2AL",
 
 duration = dirs[0]['legs'][0]['duration']['value']
 
+# useful to get total elapsed time i.e. including waiting time
+arr_time = dirs[0]['legs'][0]['arrival_time']['value']
+elapsed = arr_time - int(time.time())
+
 mode = None
 try:
     for step in dirs[0]['legs'][0]['steps']:
@@ -29,6 +34,9 @@ try:
             mode = 1
             break
     if mode is None:
+        print('neither subway nor bus')
+        for step in dirs[0]['legs'][0]['steps']:
+            print(step['html_instructions'])
         mode = 2
 except KeyError:
     logging.error("error parsing html_instructions")
@@ -39,6 +47,11 @@ d = Gauge('transit_kew_duration_minutes', \
           'Duration of typical commute from Kew to Gunnersbury', \
           registry = r)
 d.set(duration/60)
+
+e = Gauge('transit_kew_elapsed_minutes', \
+          'Elapsed time (including waiting time) of typical commute from Kew to Gunnersbury', \
+          registry = r)
+e.set(elapsed/60)
 
 m = Gauge('transit_kew_fastestmode', \
           'Fastest mode of typical commute from Kew to Gunnersbury', \
