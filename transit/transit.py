@@ -30,17 +30,20 @@ try:
         if 'Subway' in step['html_instructions']:
             mode = 0
             break
-        elif 'Bus' in step['html_instructions']:
+        elif 'Commuter train' in step['html_instructions']:
             mode = 1
             break
+        elif 'Bus' in step['html_instructions']:
+            mode = 2
+            break
     if mode is None:
-        print('neither subway nor bus')
+        print('unknown mode, not tube/train/bus:')
         for step in dirs[0]['legs'][0]['steps']:
             print(step['html_instructions'])
-        mode = 2
+        mode = 3
 except KeyError:
     logging.error("error parsing html_instructions")
-    mode = 3
+    mode = 4
 
 r = CollectorRegistry()
 d = Gauge('transit_kew_duration_minutes', \
